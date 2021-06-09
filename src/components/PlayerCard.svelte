@@ -1,17 +1,18 @@
 <script lang="ts">
     import { nanoid } from "nanoid"
-    import type { Player } from "../interfaces"
+    import type { Player, Position } from "../interfaces"
     import { toPosition } from "../utils"
-    import PlayerEditor from "../components/PlayerEditor.svelte"
+    import PlayerForm from "../components/PlayerForm.svelte"
 
     export let id: string
     export let picture: string
     export let name: string
-    export let position: string
+    export let position: Position
     export let score: number
     export let goals: number
     let selectedPlayer: Player | undefined
-    let isEditing = false
+    let showEdit = false
+    let editingPlayer: Player | undefined
 
     const deletePlayer = (id: string) => {
         // TODO: add `DELETE` api request (endpoint: `/players`, accepted payload: player id)
@@ -45,7 +46,7 @@
         </div>
     </div>
     <div class="buttons_box">
-        <button class="edit" on:click="{() => updatePlayer(selectedPlayer)}"
+        <button class="edit" on:click="{() => (showEdit = true)}"
             ><img class="icon" src="edit.svg" /></button
         >
         <button class="delete" on:click="{() => deletePlayer(id)}"
@@ -53,6 +54,18 @@
         >
     </div>
 </div>
+
+{#if showEdit}
+    <PlayerForm
+        onClose="{() => {showEdit = false}}"
+        name="{name}"
+        id="{id}"
+        position="{position}"
+        picture="{picture}"
+        score="{score}"
+        onUpdate="{(data) => (editingPlayer = data)}"
+    />
+{/if}
 
 <style lang="scss">
     .card {
@@ -83,7 +96,7 @@
         font-size: 20px;
     }
     .center {
-      display: flex;
+        display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -107,21 +120,21 @@
         margin: 2.5rem 2rem;
     }
     .data_box {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .title {
-      color: #bfdbfe;
-      font-size: 10px;
-      margin:0;
+        color: #bfdbfe;
+        font-size: 10px;
+        margin: 0;
     }
     .data {
         color: #bfdbfe;
         font-size: 16px;
         font-weight: bold;
-        margin:0;
+        margin: 0;
     }
     .buttons_box {
         display: flex;

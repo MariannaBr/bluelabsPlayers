@@ -5,13 +5,14 @@
     export let onClose: () => void
     export let submitPlayer: (p: Player) => Promise<any>
     export let player: Partial<Player>
+    export let name: string
 
     let editingPlayer: Player | undefined
 </script>
 
 <section>
     <h2 id="form-dialog-title">
-        {player.name ? `Edit ${player.name}` : "New player"}
+        {name ? `Edit ${name}` : "New player"}
     </h2>
     <div>
         <PlayerForm

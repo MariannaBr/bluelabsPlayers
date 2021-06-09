@@ -2,12 +2,12 @@
     import { nanoid } from "nanoid"
     import type { Player } from "../interfaces"
     import { toPosition } from "../utils"
-    import PlayerEditor from "../components/PlayerEditor.svelte"
+    import PlayerForm from "../components/PlayerForm.svelte"
     import PlayerCard from "../components/PlayerCard.svelte"
 
     export let players: Array<Player> = []
-    let selectedPlayer: Player | undefined
-    let isEditing = false
+    let addedPlayer: Player | undefined
+    let isAdding = false
 
     const deletePlayer = (id: string) => {
         // TODO: add `DELETE` api request (endpoint: `/players`, accepted payload: player id)
@@ -69,9 +69,23 @@
             id="{player.id}"
         />
     {/each}
+    <button on:click="{() => (isAdding = true)}"> Add Player </button>
+    {#if isAdding}
+        <PlayerForm
+            onClose="{() => {
+                isAdding = false
+            }}"
+            name=""
+            id="{nanoid()}"
+            position="{toPosition("Goalkeeper")}"
+            picture=""
+            score=0
+            onUpdate="{data => addedPlayer = data}"
+        />
+    {/if}
 </div>
 
-{#if isEditing || !!selectedPlayer}
+<!-- {#if isEditing || !!selectedPlayer}
     <PlayerEditor
         onClose="{() => {
             isEditing = false
@@ -86,8 +100,7 @@
         }}"
         player="{selectedPlayer || getDefaultPlayer()}"
     />
-{/if}
-
+{/if} -->
 <style lang="scss">
     .box {
         display: grid;
@@ -99,7 +112,14 @@
         gap: 5rem;
         justify-items: center;
         @media (min-width: 768px) {
-          grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
+    button {
+        width: 6.2rem;
+        height: 2.2rem;
+        border-radius: 0.7rem;
+        background-color: #374151;
+        color: #bfdbfe;
     }
 </style>
