@@ -3,6 +3,7 @@
     import type { Player } from "../interfaces"
     import { toPosition } from "../utils"
     import PlayerEditor from "../components/PlayerEditor.svelte"
+    import PlayerCard from "../components/PlayerCard.svelte"
 
     export let players: Array<Player> = []
     let selectedPlayer: Player | undefined
@@ -33,18 +34,7 @@
     }
 </script>
 
-<style lang="scss">
-    li {
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #eee;
-    }
-    img {
-        max-width: 4rem;
-    }
-</style>
-
-<div>
+<!-- <div>
     <ul>
         {#each players as player (player.id)}
             <li>
@@ -67,20 +57,49 @@
     <button id="add-player" on:click={() => isEditing = !isEditing}>
         <span>Add</span>
     </button>
+</div> -->
+<div class="box">
+    {#each players as player (player.id)}
+        <PlayerCard
+            picture="{player.picture}"
+            name="{player.name}"
+            position="{player.position}"
+            score="{player.score}"
+            goals="{player.goals}"
+            id="{player.id}"
+        />
+    {/each}
 </div>
 
 {#if isEditing || !!selectedPlayer}
-    <PlayerEditor onClose={() => {
-                        isEditing = false
-                        selectedPlayer = undefined
-                    }}
-                  submitPlayer={player => {
-                                    if (selectedPlayer) {
-                                        return updatePlayer(player)
-                                    } else {
-                                        return addPlayer(player)
-                                    }
-                                }}
-                  player={selectedPlayer || getDefaultPlayer()}
+    <PlayerEditor
+        onClose="{() => {
+            isEditing = false
+            selectedPlayer = undefined
+        }}"
+        submitPlayer="{(player) => {
+            if (selectedPlayer) {
+                return updatePlayer(player)
+            } else {
+                return addPlayer(player)
+            }
+        }}"
+        player="{selectedPlayer || getDefaultPlayer()}"
     />
 {/if}
+
+<style lang="scss">
+    .box {
+        display: grid;
+        grid-template-columns: repeat(1, auto);
+        grid-template-rows: auto;
+        width: auto;
+        margin: 3rem auto 3rem auto;
+        padding-bottom: 5rem;
+        gap: 5rem;
+        justify-items: center;
+        @media (min-width: 768px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+    }
+</style>
