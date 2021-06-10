@@ -3,7 +3,7 @@
     import PlayerForm from "../components/PlayerForm.svelte"
 
     export let onClose: () => void
-    export let submitPlayer: (p: Player) => Promise<any>
+    //export let submitPlayer: (p: Player) => Promise<any>
     export let player: Partial<Player>
     export let name: string
 

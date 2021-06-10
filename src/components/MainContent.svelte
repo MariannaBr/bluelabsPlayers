@@ -9,11 +9,6 @@
     let addedPlayer: Player | undefined
     let isAdding = false
 
-    const deletePlayer = (id: string) => {
-        // TODO: add `DELETE` api request (endpoint: `/players`, accepted payload: player id)
-        throw new Error("Delete request not implemented")
-    }
-
     const updatePlayer = (player: Player) => {
         // TODO: add `PUT` api request (endpoint: `/players`, accepted payload: player)
         throw new Error("Put request not implemented")
@@ -21,7 +16,13 @@
 
     const addPlayer = (player: Player) => {
         // TODO: add `POST` api request (endpoint: `/players`, accepted payload: player)
-        throw new Error("Post request not implemented")
+        let payload = JSON.stringify({player})
+        fetch("/players", {
+          method: "POST",
+          headers: { "content-type" : "application/json" },
+          body: payload
+        })
+        //throw new Error("Post request not implemented")
     }
 
     const getDefaultPlayer = () => {

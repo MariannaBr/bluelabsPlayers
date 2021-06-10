@@ -10,7 +10,7 @@
     export let goals: number = 0
     export let onUpdate: (player: Player) => void
     export let onClose: () => void
-    export let submitPlayer: (p: Player) => Promise<any>
+    //export let submitPlayer: (p: Player) => Promise<any>
     let error: string | undefined
     $: data = {
         id,
@@ -20,12 +20,32 @@
         score,
         goals,
     }
+
+    const addPlayer = (player: Player) => {
+        // TODO: add `POST` api request (endpoint: `/players`, accepted payload: player)
+        let payload = JSON.stringify({
+            id: data.id,
+            name: data.name,
+            position: data.position,
+            picture: data.picture,
+            score: data.score,
+            goals: data.goals,
+        })
+        console.log("payload", payload)
+        fetch("/players", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: payload,
+        })
+        //throw new Error("Post request not implemented")
+    }
 </script>
 
 <div class="modal">
     <div class="box">
         <label class="title" for="name">Name</label>
-        <input class="text_input"
+        <input
+            class="text_input"
             required
             id="name"
             name="name"
@@ -38,7 +58,8 @@
     </div>
     <div class="box">
         <label class="title" for="name">Position</label>
-        <select class="text_input"
+        <select
+            class="text_input"
             bind:value="{position}"
             on:change="{(e) => {
                 const nextPosition = toPosition(e.target.value)
@@ -58,7 +79,8 @@
     </div>
     <div class="box">
         <label class="title" for="score">Score</label>
-        <input class="text_input"
+        <input
+            class="text_input"
             type="number"
             min="0"
             max="100"
@@ -77,7 +99,8 @@
     </div>
     <div class="box">
         <label class="title" for="goals">Goals</label>
-        <input class="text_input"
+        <input
+            class="text_input"
             type="number"
             min="0"
             max="100"
@@ -99,12 +122,13 @@
             <label class="title">Change picture (best 400x400)</label>
             <img src="{data.picture}" alt="Player's preview" />
         {:else}
-        <label class="title">Pick a picture (best 400x400)</label>
+            <label class="title">Pick a picture (best 400x400)</label>
         {/if}
         {#if error}
             <p class="error">{error}</p>
         {/if}
-        <input class="img_input"
+        <input
+            class="img_input"
             type="file"
             accept="image/png, image/jpeg"
             on:change="{(e) => {
@@ -127,8 +151,9 @@
     <div class="box">
         <button
             on:click="{() => {
-                // TODO: implement the "Add player" functionality
-                throw new Error('Missing implementation for Add player')
+                addPlayer(data)
+                onClose()
+                //throw new Error('Missing implementation for Add player')
             }}"
         >
             Submit
@@ -166,21 +191,21 @@
         margin: 2.5rem 2rem;
     }
     button {
-      width: 6.2rem;
+        width: 6.2rem;
         height: 2.2rem;
         border-radius: 0.7rem;
         background-color: #374151;
         color: #bfdbfe;
     }
     .text_input {
-      padding: 0.5rem;
-      border-radius: 0.2rem;
+        padding: 0.5rem;
+        border-radius: 0.2rem;
     }
     .title {
-      font-size: 16px;
-      color: #374151;
+        font-size: 16px;
+        color: #374151;
     }
     .img_input {
-      background-color: black;
+        background-color: black;
     }
 </style>

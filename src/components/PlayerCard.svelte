@@ -3,6 +3,8 @@
     import type { Player, Position } from "../interfaces"
     import { toPosition } from "../utils"
     import PlayerForm from "../components/PlayerForm.svelte"
+    import { del } from "../routes/players/index"
+    import playerList from "../data/players"
 
     export let id: string
     export let picture: string
@@ -10,13 +12,20 @@
     export let position: Position
     export let score: number
     export let goals: number
+    let players: Array<Player> = playerList
     let selectedPlayer: Player | undefined
     let showEdit = false
     let editingPlayer: Player | undefined
 
     const deletePlayer = (id: string) => {
-        // TODO: add `DELETE` api request (endpoint: `/players`, accepted payload: player id)
-        throw new Error("Delete request not implemented")
+        let payload = JSON.stringify({id: id})
+        fetch("/players", {
+            method: "DELETE",
+            headers: { "content-type" : "application/json" },
+            body: payload,
+        })//.then(body => {console.log(body)})
+        //.then((response) => response.json())
+        window.location.reload()
     }
 
     const updatePlayer = (player: Player) => {
@@ -57,7 +66,9 @@
 
 {#if showEdit}
     <PlayerForm
-        onClose="{() => {showEdit = false}}"
+        onClose="{() => {
+            showEdit = false
+        }}"
         name="{name}"
         id="{id}"
         position="{position}"
