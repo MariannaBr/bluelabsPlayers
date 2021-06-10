@@ -1,0 +1,9 @@
+$primary-color: #374151;
+$secondary-color: #bfdbfe;
+
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

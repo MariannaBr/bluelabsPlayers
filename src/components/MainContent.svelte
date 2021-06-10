@@ -41,6 +41,7 @@
 </div>
 
 <style lang="scss">
+  @import '../static/style/base';
     .box {
         display: grid;
         grid-template-columns: repeat(1, auto);
@@ -58,7 +59,7 @@
         width: 6.2rem;
         height: 2.2rem;
         border-radius: 0.7rem;
-        background-color: #374151;
-        color: #bfdbfe;
+        background-color: $primary-color;
+        color: $secondary-color;
     }
 </style>

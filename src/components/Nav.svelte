@@ -1,11 +1,13 @@
 <style>
 	nav {
-		border-bottom: 1px solid #459ed6;
+		border-bottom: 1px solid #bfdbfe;
 		font-weight: 300;
 		padding: 1rem;
 	}
     h1 {
        margin: 0;
+       font-weight: bold;
+       color: #374151;
     }
 </style>
 

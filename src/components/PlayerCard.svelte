@@ -21,11 +21,6 @@
         })
         window.location.reload()
     }
-
-    const updatePlayer = (player: Player) => {
-        // TODO: add `PUT` api request (endpoint: `/players`, accepted payload: player)
-        throw new Error("Put request not implemented")
-    }
 </script>
 
 <div class="card">
@@ -75,6 +70,8 @@
 {/if}
 
 <style lang="scss">
+  @import '../static/style/base';
+  //@use 'base';
     .card {
         width: auto;
         max-width: 20rem;
@@ -96,23 +93,17 @@
         object-fit: cover;
     }
     .name {
-        color: #bfdbfe;
+        color: $secondary-color;
         font-weight: bold;
         margin: 1rem 0 0.5rem 0;
         text-align: center;
         font-size: 20px;
     }
-    .center {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
     .position_box {
         width: 6.2rem;
         height: 2.2rem;
         border-radius: 0.7rem;
-        background-color: #374151;
+        background-color: $primary-color;
     }
     .position {
         text-align: center;
@@ -133,18 +124,19 @@
         align-items: center;
     }
     .title {
-        color: #bfdbfe;
+        color: $secondary-color;
         font-size: 10px;
         margin: 0;
     }
     .data {
-        color: #bfdbfe;
+        color: $secondary-color;
         font-size: 16px;
         font-weight: bold;
         margin: 0;
     }
     .buttons_box {
         display: flex;
+        width: 102%;
         flex-direction: row;
         height: 3rem;
         border-bottom-left-radius: 0.5rem;
@@ -159,12 +151,6 @@
         &:hover {
             font-weight: bold;
             background-color: #e5e7eb;
-        }
-        &.edit {
-            color: #2563eb;
-        }
-        &.delete {
-            color: #dc2626;
         }
     }
     .icon {

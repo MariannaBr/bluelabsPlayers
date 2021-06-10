@@ -2087,7 +2087,7 @@
   "resolved" "https://registry.npmjs.org/check-more-types/-/check-more-types-2.24.0.tgz"
   "version" "2.24.0"
 
-"chokidar@^3.4.1":
+"chokidar@^3.4.1", "chokidar@>=3.0.0 <4.0.0":
   "integrity" "sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw=="
   "resolved" "https://registry.npmjs.org/chokidar/-/chokidar-3.5.1.tgz"
   "version" "3.5.1"
@@ -5564,6 +5564,13 @@
     "lodash" "^4.0.0"
     "scss-tokenizer" "^0.2.3"
     "yargs" "^13.3.2"
+
+"sass@^1.26.8", "sass@^1.34.1":
+  "integrity" "sha512-scLA7EIZM+MmYlej6sdVr0HRbZX5caX5ofDT9asWnUJj21oqgsC+1LuNfm0eg+vM0fCTZHhwImTiCU0sx9h9CQ=="
+  "resolved" "https://registry.npmjs.org/sass/-/sass-1.34.1.tgz"
+  "version" "1.34.1"
+  dependencies:
+    "chokidar" ">=3.0.0 <4.0.0"
 
 "saxes@^5.0.1":
   "integrity" "sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw=="
