@@ -3,14 +3,15 @@
     import { toPosition, readFileAsBase64 } from "../utils"
 
     export let id: string
-    export let name: string = ""
-    export let position: Position = "Goalkeeper"
-    export let picture: string = ""
-    export let score: number = 0
-    export let goals: number = 0
+    export let name: string
+    export let position: Position
+    export let picture: string
+    export let score: number
+    export let goals: number
+    export let update: boolean
     export let onUpdate: (player: Player) => void
     export let onClose: () => void
-    //export let submitPlayer: (p: Player) => Promise<any>
+
     let error: string | undefined
     $: data = {
         id,
@@ -19,25 +20,28 @@
         picture,
         score,
         goals,
+        update
     }
 
-    const addPlayer = (player: Player) => {
-        // TODO: add `POST` api request (endpoint: `/players`, accepted payload: player)
+    const addPlayer = (player: Player, update: boolean) => {
         let payload = JSON.stringify({
-            id: data.id,
-            name: data.name,
-            position: data.position,
-            picture: data.picture,
-            score: data.score,
-            goals: data.goals,
+            id: player.id,
+            name: player.name,
+            position: player.position,
+            picture: player.picture,
+            score: player.score,
+            goals: player.goals,
         })
-        console.log("payload", payload)
+        let callMethod = "POST"
+        if (update) {
+          callMethod = "PUT"
+        }
         fetch("/players", {
-            method: "POST",
+            method: callMethod,
             headers: { "content-type": "application/json" },
             body: payload,
         })
-        //throw new Error("Post request not implemented")
+        window.location.reload()
     }
 </script>
 
@@ -151,9 +155,8 @@
     <div class="box">
         <button
             on:click="{() => {
-                addPlayer(data)
+                addPlayer(data, data.update)
                 onClose()
-                //throw new Error('Missing implementation for Add player')
             }}"
         >
             Submit

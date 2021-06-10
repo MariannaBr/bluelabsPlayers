@@ -9,56 +9,8 @@
     let addedPlayer: Player | undefined
     let isAdding = false
 
-    const updatePlayer = (player: Player) => {
-        // TODO: add `PUT` api request (endpoint: `/players`, accepted payload: player)
-        throw new Error("Put request not implemented")
-    }
-
-    const addPlayer = (player: Player) => {
-        // TODO: add `POST` api request (endpoint: `/players`, accepted payload: player)
-        let payload = JSON.stringify({player})
-        fetch("/players", {
-          method: "POST",
-          headers: { "content-type" : "application/json" },
-          body: payload
-        })
-        //throw new Error("Post request not implemented")
-    }
-
-    const getDefaultPlayer = () => {
-        return {
-            id: nanoid(),
-            position: toPosition("Goalkeeper"),
-            score: 0,
-            goals: 0,
-        }
-    }
 </script>
 
-<!-- <div>
-    <ul>
-        {#each players as player (player.id)}
-            <li>
-                <img
-                    src={player.picture}
-                    alt={`of ${player.name}`}
-                    title="Image title"
-                />
-                <p>{player.name}</p>
-                <p>{player.position}</p>
-                <p>{player.score}</p>
-                <p>{player.goals}</p>
-                <div>
-                    <button on:click={() => deletePlayer(player.id)}>Delete</button>
-                    <button on:click={() => selectedPlayer = player}>Edit</button>
-                </div>
-            </li>
-        {/each}
-    </ul>
-    <button id="add-player" on:click={() => isEditing = !isEditing}>
-        <span>Add</span>
-    </button>
-</div> -->
 <div class="box">
     {#each players as player (player.id)}
         <PlayerCard
@@ -80,28 +32,14 @@
             id="{nanoid()}"
             position="{toPosition("Goalkeeper")}"
             picture=""
-            score=0
+            score={0}
+            goals={0}
+            update={false}
             onUpdate="{data => addedPlayer = data}"
         />
     {/if}
 </div>
 
-<!-- {#if isEditing || !!selectedPlayer}
-    <PlayerEditor
-        onClose="{() => {
-            isEditing = false
-            selectedPlayer = undefined
-        }}"
-        submitPlayer="{(player) => {
-            if (selectedPlayer) {
-                return updatePlayer(player)
-            } else {
-                return addPlayer(player)
-            }
-        }}"
-        player="{selectedPlayer || getDefaultPlayer()}"
-    />
-{/if} -->
 <style lang="scss">
     .box {
         display: grid;

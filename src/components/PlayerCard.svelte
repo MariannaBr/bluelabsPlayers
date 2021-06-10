@@ -1,10 +1,6 @@
 <script lang="ts">
-    import { nanoid } from "nanoid"
     import type { Player, Position } from "../interfaces"
-    import { toPosition } from "../utils"
     import PlayerForm from "../components/PlayerForm.svelte"
-    import { del } from "../routes/players/index"
-    import playerList from "../data/players"
 
     export let id: string
     export let picture: string
@@ -12,8 +8,7 @@
     export let position: Position
     export let score: number
     export let goals: number
-    let players: Array<Player> = playerList
-    let selectedPlayer: Player | undefined
+  
     let showEdit = false
     let editingPlayer: Player | undefined
 
@@ -23,8 +18,7 @@
             method: "DELETE",
             headers: { "content-type" : "application/json" },
             body: payload,
-        })//.then(body => {console.log(body)})
-        //.then((response) => response.json())
+        })
         window.location.reload()
     }
 
@@ -74,6 +68,8 @@
         position="{position}"
         picture="{picture}"
         score="{score}"
+        goals="{goals}"
+        update={true}
         onUpdate="{(data) => (editingPlayer = data)}"
     />
 {/if}
