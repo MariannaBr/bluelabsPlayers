@@ -130,7 +130,7 @@
     }
     .data {
         color: $secondary-color;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
         margin: 0;
     }

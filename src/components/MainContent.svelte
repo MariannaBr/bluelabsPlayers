@@ -22,7 +22,7 @@
             id="{player.id}"
         />
     {/each}
-    <button on:click="{() => (isAdding = true)}"> Add Player </button>
+    <button class="add-player" on:click="{() => (isAdding = true)}"> Add Player </button>
     {#if isAdding}
         <PlayerForm
             onClose="{() => {
@@ -55,11 +55,14 @@
             grid-template-columns: repeat(2, 1fr);
         }
     }
-    button {
+    .add-player {
         width: 6.2rem;
         height: 2.2rem;
         border-radius: 0.7rem;
         background-color: $primary-color;
         color: $secondary-color;
+        &:hover {
+              background-color: #6b7280;
+            }
     }
 </style>

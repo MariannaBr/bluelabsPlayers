@@ -235,6 +235,9 @@
             border-radius: 0.7rem;
             background-color: $primary-color;
             color: $secondary-color;
+            &:hover {
+              background-color: #6b7280;
+            }
         }
         &.secondary {
             position: relative;
